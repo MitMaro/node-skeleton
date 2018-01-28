@@ -17,7 +17,11 @@ A sample skeleton application that can be used for creating node projects.
 ### Required changes
 
 * Update the `README.md` to describe the project
-* Update `name`, `description`, `repository.url`, `author` in `package.json`
+* Update `name`, `description`, `repository.url`, `author` and `types` in `package.json`
+* Update `scripts/build.bash` and replace path to TypeScript definition file
+* Update `src/index.d.ts` to set `<project>`
+* Rename `src/index.d.ts` to match the project name
+* Update `travis.yml` and set the `<repo-name>` and `<api-key>`
 
 ### First project commit
 

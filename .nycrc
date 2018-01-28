@@ -10,16 +10,15 @@
 	],
 	"reporter": [
 		"json",
+		"text",
 		"text-summary",
 		"html"
 	],
 	"all": true,
 	"check-coverage": true,
-	"produce-source-map": true,
+	"produce-source-map": false,
+	"per-file": true,
 	"report-dir": "./coverage",
-	"require": [
-		"babel-register"
-	],
 	"sourceMap": false,
-	"instrument": false
+	"instrument": true
 }

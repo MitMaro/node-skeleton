@@ -1,0 +1,37 @@
+sudo: false
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+language: node_js
+branches:
+  only:
+  - master
+  - /^v\d+\.\d+\.\d+$/
+stages:
+  - test
+  - deploy
+jobs:
+  include:
+    - stage: test
+      node_js: 8
+      before_script: npm install coveralls
+      script: ./scripts/test.bash :coverage
+      script: ./scripts/lint.bash
+      after_script: nyc report --reporter=text-lcov | coveralls
+    - stage: test
+      node_js: 6
+      script: ./scripts/test.bash :unit --require @babel/register
+    - stage: deploy
+      node_js: 8
+      skip_cleanup: true
+      script: ./scripts/build.bash
+      deploy:
+        provider: npm
+        email: mitmaro@gmail.com
+        skip_cleanup: true
+        api_key:
+          secure: <api-key>
+        on:
+          tags: true
+          repo: MitMaro/<repo-name>

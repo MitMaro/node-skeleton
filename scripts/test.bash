@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 cd "$(dirname "${BASH_SOURCE[0]}")" && source "./common.bash"
+task="${1-}"
+shift 1 || true
 
-export BABEL_ENV=test
-
-case "${1-""}" in
-	':unit') mocha ;;
-	':unit:coverage') nyc mocha ;;
-	''|':all') nyc mocha && run  ;;
-	*) fatal "Invalid test target $1" "$EXIT_CODE_INVALID_STATE"
+case "$task" in
+	':unit') mocha "$@";;
+	':coverage'|':unit:coverage') nyc mocha "$@" ;;
+	''|':all') nyc mocha "$@" ;;
+	*) fatal "Invalid test target $task" "$EXIT_CODE_INVALID_STATE" ;;
 esac
